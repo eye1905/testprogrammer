@@ -187,6 +187,10 @@
     })
   });
 
+  $( function() {
+      $("#tgllahir").datepicker();
+  } );
+
   function getinput() {
       $("#trinsert").show();
   }

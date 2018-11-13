@@ -22,7 +22,7 @@
               <!-- /.box-header -->
               <div class="box-body table-responsive">
                 <div class="pull-right" style="margin-right: 20pt; margin-bottom: 5pt">
-                      <button class="btn btn-sm btn-primary" onclick="getinput()">Tambah Data</button>
+                  <a href="{{ url('User/create') }}" class="btn btn-sm btn-primary">Tambah Data</a>
                 </div>
                 <table id="tableku" class="table table-bordered table-hover ">
                   <thead>
@@ -46,39 +46,11 @@
                       <td>{{ $value->nohp }}</td>
                       <td>{{ $value->alamat }}</td>
                       <td>
-                        <button class="btn btn-sm btn-warning" onclick="edit({{ $value->id }})">Edit</button>
+                        <a href="{{ url('User/show') }}/{{ $value->id }}" class="btn btn-sm btn-warning">Edit</a>
                         <button class="btn btn-sm btn-danger" onclick="hapus({{ $value->id }})">Hapus</button>
                       </td>
                     </tr>
-                    @endforeach
-                    <tr id="trinsert">
-                      <form action="{{ url('User/store') }}" method="post" id="formku" name="formku">
-                      {!! csrf_field() !!}
-                      <div class="form-group">
-                        <td>
-                          <input type="hidden" class="form-control" id="iduser" name="iduser">
-                        </td>
-                        <td>
-                          <input type="text" class="form-control" id="namauser" name="namauser" placeholder="Masukan Nama">
-                        </td>
-                        <td>
-                          <input type="email" class="form-control" id="emailuser" name="emailuser" placeholder="Masukan Email">
-                        </td>
-                        <td>
-                          <input type="password" class="form-control" id="passworduser" name="passworduser" placeholder="Masukan Password">
-                        </td>
-                        <td>
-                          <input type="text" class="form-control" id="nohp" name="nohp" placeholder="Masukan No Hp">
-                        </td>
-                        <td>
-                          <textarea class="form-control" id="alamat" name="alamat"></textarea>
-                        </td>
-                        <td>
-                          <button class="btn btn-sm btn-success">Simpan</button>
-                        </td>
-                      </div>
-                      </form>
-                    </tr>                    
+                    @endforeach         
                   </tbody>
                 </table>
                 </div>
@@ -87,30 +59,8 @@
           </div>
   </section>
 @endsection
-<script type="text/javascript">
-  function edit(id) {
-      $("#trinsert").show();
-      $('#formku').attr('action', '{{ url('User/update') }}');
-      $.ajax({
-        url : "{{ url('User/edit') }}/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $("#iduser").val(data.id);
-            $("#namauser").val(data.name);
-            $("#emailuser").val(data.email);
-            $("#passworduser").val(data.password);
-            $("#nohp").val(data.nohp);
-            $("#alamat").val(data.alamat);
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('error'+textStatus);
-        }
-      });
-  }
 
+<script type="text/javascript">
   function hapus(id) {
       $.ajax({
         url : "{{ url('User/destroy') }}/" + id,

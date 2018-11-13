@@ -20,7 +20,8 @@ Route::post('/User/store', 'User@store');
 Route::get('/User/edit/{id}', 'User@edit');
 Route::get('/User/destroy/{id}', 'User@destroy');
 Route::post('/User/update', 'User@update');
-
+Route::get('/User/create', 'User@create');
+Route::get('/User/show/{id}', 'User@show');
 
 /*Route Master Kota*/
 Route::get('/Kota', 'Kota@index');

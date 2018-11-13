@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use App\Usermodel as Models;
+use App\KotaModel;
 
 class User extends BaseController
 {
@@ -30,8 +31,10 @@ class User extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $data['data2'] = KotaModel::index();
+
+        return view('createuser', $data);
     }
 
     /**
@@ -43,18 +46,24 @@ class User extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'namauser' => 'required',
-            'emailuser' => 'required|email',
-            'passworduser' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
             'nohp' => 'required',
+            'tgllahir' => 'required',
+            'idkota' => 'required',
             'alamat' => 'required'
         ]);
 
         $data=array(
             'remember_token'=> $request->_token,
-            'name' => $request->namauser,
-            'email' => $request->emailuser,
-            'password' => $request->passworduser,
+            'username' => $request->username,
+            'name' => $request->nama,
+            'tgllahir' => $request->tgllahir,
+            'idkota' => $request->idkota,
+            'email' => $request->email,
+            'password' => $request->password,
             'nohp' => $request->nohp,
             'alamat' => $request->alamat
         );
@@ -63,21 +72,33 @@ class User extends BaseController
         return Redirect::to('/')->with('success','Tambah User Sukses !');
     }
 
+    public function show($id)
+    {
+        $data['data'] = $this->model->find($id);
+        $data['data2'] = KotaModel::index();
+
+        return view('edituser', $data);
+    }
     public function update(Request $request)
     {
-       $this->validate($request, [
-            'namauser' => 'required',
-            'emailuser' => 'required|email',
-            'passworduser' => 'required',
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
             'nohp' => 'required',
+            'tgllahir' => 'required',
+            'idkota' => 'required',
             'alamat' => 'required'
         ]);
 
         $data=array(
-            'remember_token'=> $request->_token,
-            'name' => $request->namauser,
-            'email' => $request->emailuser,
-            'password' => $request->passworduser,
+            'username' => $request->username,
+            'name' => $request->nama,
+            'tgllahir' => $request->tgllahir,
+            'idkota' => $request->idkota,
+            'email' => $request->email,
+            'password' => $request->password,
             'nohp' => $request->nohp,
             'alamat' => $request->alamat
         );
