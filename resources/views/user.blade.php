@@ -89,6 +89,7 @@
 @endsection
 <script type="text/javascript">
   function edit(id) {
+      $("#trinsert").show();
       $('#formku').attr('action', '{{ url('User/update') }}');
       $.ajax({
         url : "{{ url('User/edit') }}/" + id,

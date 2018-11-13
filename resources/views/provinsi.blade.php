@@ -72,6 +72,7 @@
 
 <script type="text/javascript">
   function edit(id) {
+      $("#trinsert").show();
       $('#formku').attr('action', '{{ url('Provinsi/update') }}');
       $.ajax({
         url : "{{ url('Provinsi/edit') }}/" + id,
