@@ -13,7 +13,6 @@ class ModelUtama extends Model
    public static function index()
    {
    	 $data = DB::table($table)->get();
-
    	 return $data;
    }
 }
